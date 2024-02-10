@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace Application
+namespace HR.LeaveManagement.Application
 {
 	public static class ApplicationServiceRegistration
 	{

@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistence;
+﻿using HR.LeaveManagement.Application.Contracts.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

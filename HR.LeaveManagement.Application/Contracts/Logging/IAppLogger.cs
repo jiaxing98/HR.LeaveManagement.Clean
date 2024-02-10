@@ -1,4 +1,4 @@
-﻿namespace Application.Contracts.Logging
+﻿namespace HR.LeaveManagement.Application.Contracts.Logging
 {
 	public interface IAppLogger<T>
 	{

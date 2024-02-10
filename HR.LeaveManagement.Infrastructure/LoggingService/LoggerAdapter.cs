@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Logging;
+﻿using HR.LeaveManagement.Application.Contracts.Logging;
 using Microsoft.Extensions.Logging;
 
 namespace HR.LeaveManagement.Infrastructure.LoggingService

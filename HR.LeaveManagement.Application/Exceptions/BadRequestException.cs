@@ -1,24 +1,20 @@
 ﻿
 using FluentValidation.Results;
 
-namespace Application.Exceptions
+namespace HR.LeaveManagement.Application.Exceptions
 {
 	public class BadRequestException : Exception
 	{
-		public BadRequestException(string message) : base(message)
+        public IDictionary<string, string[]> ValidationErrors { get; set; } = new Dictionary<string, string[]>();
+
+        public BadRequestException(string message) : base(message)
 		{
 
 		}
 
 		public BadRequestException(string message, ValidationResult result) : base(message)
 		{
-			ValidationErrors = [];
-			foreach(var error in result.Errors)
-			{
-				ValidationErrors.Add(error.ErrorMessage);
-			}
-		}
-
-		public List<string> ValidationErrors { get; set; }
+			ValidationErrors = result.ToDictionary();
+        }
 	}
 }

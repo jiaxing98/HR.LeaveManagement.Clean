@@ -1,10 +1,10 @@
-﻿using Application.Contracts.Persistence;
-using Application.Exceptions;
+﻿using HR.LeaveManagement.Application.Contracts.Persistence;
+using HR.LeaveManagement.Application.Exceptions;
 using AutoMapper;
 using HR.LeaveManagement.Domain;
 using MediatR;
 
-namespace Application.Features.LeaveType.Commands.DeleteLeaveType
+namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.DeleteLeaveType
 {
 	public class DeleteLeaveTypeCommandHandler : IRequestHandler<DeleteLeaveTypeCommand, Unit>
 	{

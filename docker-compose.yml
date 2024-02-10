@@ -1,0 +1,15 @@
+version: "3.4"
+
+services:
+  sql:
+    image: mcr.microsoft.com/mssql/server
+    ports:
+      - 1433:1433
+    volumes:
+      - ./databases/sql/data:/var/opt/mssql/data
+      - ./databases/sql/log:/var/opt/mssql/log
+      - ./databases/sql/secrets:/var/opt/mssql/secrets
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Admin98sql
+      - MSSQL_PID=Express

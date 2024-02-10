@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Features.LeaveType.Commands.CreateLeaveType
+namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveType
 {
 	public record CreateLeaveTypeCommand : IRequest<int>
 	{

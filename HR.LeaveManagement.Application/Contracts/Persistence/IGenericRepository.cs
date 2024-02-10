@@ -1,6 +1,6 @@
 ﻿using HR.LeaveManagement.Domain.Common;
 
-namespace Application.Contracts.Persistence
+namespace HR.LeaveManagement.Application.Contracts.Persistence
 {
 	public interface IGenericRepository<T> where T : BaseEntity
 	{

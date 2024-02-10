@@ -1,9 +1,9 @@
-﻿using Application.Contracts.Persistence;
-using Application.Exceptions;
+﻿using HR.LeaveManagement.Application.Contracts.Persistence;
+using HR.LeaveManagement.Application.Exceptions;
 using AutoMapper;
 using MediatR;
 
-namespace Application.Features.LeaveType.Commands.CreateLeaveType
+namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.CreateLeaveType
 {
 	public class CreateLeaveTypeCommandHandler : IRequestHandler<CreateLeaveTypeCommand, int>
 	{

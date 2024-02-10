@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Features.LeaveType.Commands.UpdateLeaveType
+namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.UpdateLeaveType
 {
 	public record UpdateLeaveTypeCommand : IRequest<Unit>
 	{

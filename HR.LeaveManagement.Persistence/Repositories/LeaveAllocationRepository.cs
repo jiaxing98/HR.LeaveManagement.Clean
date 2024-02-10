@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistence;
+﻿using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Domain;
 using HR.LeaveManagement.Persistence.DataContexts;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +15,7 @@ namespace HR.LeaveManagement.Persistence.Repositories
 			await _context.SaveChangesAsync();
 		}
 
-		public async Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails()
+		public async Task<List<LeaveAllocation>> GetLeaveAllocationListWithDetails()
 		{
 			var leaveAllocations = await _context.LeaveAllocations
 				.Include(q => q.LeaveType)
@@ -24,7 +24,7 @@ namespace HR.LeaveManagement.Persistence.Repositories
 			return leaveAllocations;
 		}
 
-		public async Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails(string userId)
+		public async Task<List<LeaveAllocation>> GetLeaveAllocationListWithDetails(string userId)
 		{
 			var leaveAllocations = await _context.LeaveAllocations
 							.Where(q => q.EmployeeId == userId)

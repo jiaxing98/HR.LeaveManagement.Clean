@@ -1,8 +1,8 @@
-﻿using Application.Contracts.Persistence;
+﻿using HR.LeaveManagement.Application.Contracts.Persistence;
 using AutoMapper;
 using MediatR;
 
-namespace Application.Features.LeaveType.Queries.GetAllLeaveType
+namespace HR.LeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveType
 {
 	public class GetLeaveTypesQueryHandler : IRequestHandler<GetLeaveTypesQuery, List<LeaveTypeDto>>
 	{
