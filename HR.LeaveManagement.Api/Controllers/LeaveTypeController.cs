@@ -4,12 +4,14 @@ using HR.LeaveManagement.Application.Features.LeaveType.Commands.UpdateLeaveType
 using HR.LeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveType;
 using HR.LeaveManagement.Application.Features.LeaveType.Queries.GetLeaveTypeDetails;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.LeaveManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LeaveTypeController : ControllerBase
     {
         private readonly IMediator _mediator;
