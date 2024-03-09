@@ -9,17 +9,19 @@ namespace HR.LeaveManagement.Application.Features.LeaveRequest.Commands.CancelLe
     public class CancelLeaveRequestCommandHandler : IRequestHandler<CancelLeaveRequestCommand, Unit>
     {
         private readonly IEmailSender _emailSender;
-        private readonly ILeaveRequestRepository _repository;
+        private readonly ILeaveRequestRepository _leaveRequestRepository;
+        private readonly ILeaveAllocationRepository _leaveAllocationRepository;
 
-        public CancelLeaveRequestCommandHandler(IEmailSender emailSender, ILeaveRequestRepository leaveRequestRepository)
+        public CancelLeaveRequestCommandHandler(IEmailSender emailSender, ILeaveRequestRepository leaveRequestRepository, ILeaveAllocationRepository allocationRepository)
         {
             _emailSender = emailSender;
-            _repository = leaveRequestRepository;
+            _leaveRequestRepository = leaveRequestRepository;
+            _leaveAllocationRepository = allocationRepository;
         }
 
         public async Task<Unit> Handle(CancelLeaveRequestCommand request, CancellationToken cancellationToken)
         {
-            var leaveRequest = await _repository.GetByIdAsync(request.Id);
+            var leaveRequest = await _leaveRequestRepository.GetByIdAsync(request.Id);
 
             if (leaveRequest is null)
                 throw new NotFoundException(nameof(leaveRequest), request.Id);
@@ -27,17 +29,32 @@ namespace HR.LeaveManagement.Application.Features.LeaveRequest.Commands.CancelLe
             leaveRequest.Cancelled = true;
 
             // if already approved, re-evaluate the employee's allocations for the leave type
+            if (leaveRequest.Approved == true)
+            {
+                int daysRequested = (int)(leaveRequest.EndDate - leaveRequest.StartDate).TotalDays;
+                var allocation = await _leaveAllocationRepository.GetUserAllocations(leaveRequest.RequestingEmployeeId, leaveRequest.LeaveTypeId);
+                allocation.NumberOfDays += daysRequested;
+
+                await _leaveAllocationRepository.UpdateAsync(allocation);
+            }
 
             // send confirmation email
-            var email = new EmailMessage
+            try
             {
-                To = string.Empty, /* Get email from employee record */
-                Body = $"Your leave request for {leaveRequest.StartDate:D} to {leaveRequest.EndDate:D} " +
-                        $"has been cancelled successfully.",
-                Subject = "Leave Request Cancelled"
-            };
+                var email = new EmailMessage
+                {
+                    To = string.Empty, /* Get email from employee record */
+                    Body = $"Your leave request for {leaveRequest.StartDate:D} to {leaveRequest.EndDate:D} has been cancelled successfully.",
+                    Subject = "Leave Request Cancelled"
+                };
 
-            await _emailSender.SendEmail(email);
+                await _emailSender.SendEmail(email);
+            }
+            catch (Exception)
+            {
+                // log error
+            }
+
             return Unit.Value;
         }
     }
